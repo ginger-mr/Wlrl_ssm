@@ -5,5 +5,5 @@ import com.ginger.wlfl.pojo.Orders;
 import java.util.List;
 
 public interface IOrdersService {
-    public List<Orders> findAll();
+    public List<Orders> findAll(int page,int size);
 }

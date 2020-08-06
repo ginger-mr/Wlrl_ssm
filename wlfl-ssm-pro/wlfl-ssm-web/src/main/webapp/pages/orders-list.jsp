@@ -218,7 +218,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <c:forEach items="${ordersList}" var="orders">
+                            <c:forEach items="${pageInfo.list}" var="orders">
                                 <tr>
                                     <td><input name="ids" type="checkbox"></td>
                                     <td>${orders.id }</td>
@@ -324,11 +324,9 @@
     </div>
     <!-- @@close -->
     <!-- 内容区域 /-->
-
     <!-- 底部导航 -->
     <jsp:include page="bottom.jsp"></jsp:include>
     <!-- 底部导航 /-->
-
 </div>
 
 
