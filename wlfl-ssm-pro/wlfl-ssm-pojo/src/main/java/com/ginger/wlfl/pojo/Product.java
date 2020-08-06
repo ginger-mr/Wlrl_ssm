@@ -64,7 +64,7 @@ public class Product {
     }
 
     public String getDepartureTimeStr() {
-        return DateUtils.dateToString(departureTime, "yyyy-MM-dd");
+        return DateUtils.dateToString(departureTime, "yyyy-MM-dd hh:mm");
     }
 
     public double getProductPrice() {
@@ -99,7 +99,8 @@ public class Product {
         if (productStatus != null) {
             if (productStatus == 0)
                 productStatusStr = "关闭";
-            if (productStatus == 1)
+
+            else if (productStatus == 1)
                 productStatusStr = "开启";
         }
         return productStatusStr;
