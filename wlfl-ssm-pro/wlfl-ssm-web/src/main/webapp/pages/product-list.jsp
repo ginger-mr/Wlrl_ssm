@@ -312,14 +312,10 @@
     </div>
     <!-- @@close -->
     <!-- 内容区域 /-->
-
     <!-- 底部导航 -->
     <jsp:include page="bottom.jsp"></jsp:include>
     <!-- 底部导航 /-->
-
 </div>
-
-
 <script
         src="${pageContext.request.contextPath}/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script
@@ -417,7 +413,6 @@
             locale: 'zh-CN'
         });
     });
-
     // 设置激活菜单
     function setSidebarActive(tagUri) {
         var liObj = $("#" + tagUri);
@@ -426,7 +421,6 @@
             liObj.addClass("active");
         }
     }
-
     $(document).ready(function () {
 
         // 激活导航位置

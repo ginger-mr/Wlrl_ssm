@@ -36,4 +36,15 @@
 
     <!--开启springmvc注解支持-->
     <mvc:annotation-driven/>
+
+    <!--自定义类型转换器-->
+    <bean id="conversionService" class="org.springframework.context.support.ConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.ginger.wlfl.converter.StringToDateConverter"></bean>
+            </set>
+        </property>
+    </bean>
+    <!--引用自定义类型转换器-->
+    <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
 </beans>

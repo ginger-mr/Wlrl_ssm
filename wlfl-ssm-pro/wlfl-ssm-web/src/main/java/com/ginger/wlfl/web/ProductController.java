@@ -5,7 +5,6 @@ import com.ginger.wlfl.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -17,13 +16,28 @@ public class ProductController {
     @Autowired
     IProductService productService;
 
-    @RequestMapping("/findAll")
-    @ResponseBody
+    /**
+     * 查询所有商品
+     * @return
+     */
+    @RequestMapping("/findAll.do")
     public ModelAndView findAll() {
         ModelAndView mav = new ModelAndView();
         List<Product> productList = productService.findAll();
         mav.addObject("productList", productList);
         mav.setViewName("product-list");
         return mav;
+    }
+
+    /**
+     * 添加商品
+     * @param product
+     * @return
+     */
+    @RequestMapping("/saveProduct.do")
+    public String saveProduct(Product product) {
+        ModelAndView mav = new ModelAndView();
+        productService.saveProduct(product);
+        return "redirect:/product/findAll.do";
     }
 }
