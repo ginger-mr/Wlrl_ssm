@@ -20,15 +20,16 @@ public class OrdersController {
     IOrdersService ordersService;
 
     /*
-    未分页查询所有订单
-    @RequestMapping("/findAll.do")
-    public ModelAndView findAll() {
-        ModelAndView mav = new ModelAndView();
-        List<Orders> ordersList = ordersService.findAll();
-        mav.addObject("ordersList", ordersList);
-        mav.setViewName("orders-list");
-        return mav;
-    }*/
+        未分页查询所有订单
+        @RequestMapping("/findAll.do")
+        public ModelAndView findAll() {
+            ModelAndView mav = new ModelAndView();
+            List<Orders> ordersList = ordersService.findAll();
+            mav.addObject("ordersList", ordersList);
+            mav.setViewName("orders-list");
+            return mav;
+        }
+    */
 
     /**
      * 分页查询所有订单
@@ -48,6 +49,20 @@ public class OrdersController {
         PageInfo pageInfo = new PageInfo(ordersList);
         mav.addObject("pageInfo",pageInfo);
         mav.setViewName("orders-list");
+        return mav;
+    }
+
+    /**
+     * 根据id查询订单详情
+     * @param id
+     * @return
+     */
+    @RequestMapping("/findById.do")
+    public ModelAndView findById(String id){
+        ModelAndView mav = new ModelAndView();
+        Orders orders = ordersService.findById(id);
+        mav.addObject("orders", orders);
+        mav.setViewName("orders-show");
         return mav;
     }
 }

@@ -425,7 +425,6 @@
     function changePageSize() {
         //获取下拉框的值
         var pageSize = $("#changePageSize").val();
-        alert(pageSize);
 
         //向服务器发送请求，改变没页显示条数
         location.href = "${pageContext.request.contextPath}/orders/findAll.do?page=1&size="
