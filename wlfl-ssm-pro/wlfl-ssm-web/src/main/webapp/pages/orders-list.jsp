@@ -288,8 +288,9 @@
                 <div class="box-footer">
                     <div class="pull-left">
                         <div class="form-group form-inline">
-                            总共2 页，共14 条数据。 每页
-                            <select class="form-control">
+                            总共 ${pageInfo.pages } 页，共 ${pageInfo.total } 条数据。 每页
+                            <select id="changePageSize" class="form-control" onchange="changePageSize()">
+                                <option>----选择条数----</option>
                                 <option>1</option>
                                 <option>2</option>
                                 <option>3</option>
@@ -300,18 +301,21 @@
                     </div>
                     <div class="box-tools pull-right">
                         <ul class="pagination">
+                            <%--首页--%>
                             <li>
-                                <a href="#" aria-label="Previous">首页</a>
+                                <a href="${pageContext.request.contextPath }/orders/findAll.do?page=1&size=5" aria-label="Previous">首页</a>
                             </li>
-                            <li><a href="#">上一页</a></li>
-                            <li><a href="#">1</a></li>
-                            <li><a href="#">2</a></li>
-                            <li><a href="#">3</a></li>
-                            <li><a href="#">4</a></li>
-                            <li><a href="#">5</a></li>
-                            <li><a href="#">下一页</a></li>
+                            <%--上一页--%>
+                            <li><a href="${pageContext.request.contextPath }/orders/findAll.do?page=${pageInfo.pageNum-1 }&size=5">上一页</a></li>
+                            <%--页码--%>
+                            <c:forEach begin="1" end="${pageInfo.pages}" var="pageNum">
+                                <li><a href="${pageContext.request.contextPath }/orders/findAll.do?page=${pageNum }&size=5"> ${pageNum } </a></li>
+                            </c:forEach>
+                            <%--下一页--%>
+                            <li><a href="${pageContext.request.contextPath }/orders/findAll.do?page=${pageInfo.pageNum+1 }&size=5">下一页</a></li>
+                            <%--尾页--%>
                             <li>
-                                <a href="#" aria-label="Next">尾页</a>
+                                <a href="${pageContext.request.contextPath }/orders/findAll.do?page=${pageInfo.pages }&size=5" aria-label="Next">尾页</a>
                             </li>
                         </ul>
                     </div>
@@ -421,9 +425,10 @@
     function changePageSize() {
         //获取下拉框的值
         var pageSize = $("#changePageSize").val();
+        alert(pageSize);
 
         //向服务器发送请求，改变没页显示条数
-        location.href = "${pageContext.request.contextPath}/orders/findAll.do?page=1&pageSize="
+        location.href = "${pageContext.request.contextPath}/orders/findAll.do?page=1&size="
             + pageSize;
     }
 
