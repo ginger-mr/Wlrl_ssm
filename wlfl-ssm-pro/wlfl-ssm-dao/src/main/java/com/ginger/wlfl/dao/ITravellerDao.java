@@ -13,7 +13,7 @@ public interface ITravellerDao {
      */
     @Select("SELECT *" +
             " FROM traveller " +
-            " WHERE id = ( " +
+            " WHERE id in ( " +
                 " SELECT travellerid " +
                 " FROM order_traveller " +
                 " WHERE orderid = #{ordersId} " +
