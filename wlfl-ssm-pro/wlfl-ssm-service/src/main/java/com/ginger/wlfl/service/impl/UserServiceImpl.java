@@ -24,13 +24,16 @@ public class UserServiceImpl implements UserDetailsService {
     @Autowired
     private IUserDao userDao;
 
+    @Autowired
+    private BCryptPasswordEncoder bcpe; //注入二次加密类(当然也可以提取一个工具类)
+
     /**
      * 用户登录功能版本1.0没有进行二次加密
      * @param username
      * @return
      * @throws UsernameNotFoundException
      */
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据用户名查询用户
         UserInfo userInfo = userDao.findByUsername(username);
@@ -39,10 +42,30 @@ public class UserServiceImpl implements UserDetailsService {
         // 将封装的 user 返回，底层会比较用户和密码。
         // 因为密码是明文的所以要{noop}前缀才能访问。
         return new User(userInfo.getUsername(), "{noop}" + userInfo.getPassword(), sgas);
+    }*/
+
+    /**
+     * 用户登录功能版本2.0对输入密码进行二次加密
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // 根据用户名查询用户
+        UserInfo userInfo = userDao.findByUsername(username);
+        //将加密后的密码重新设置到用户中
+        userInfo.setPassword(bcpe.encode(userInfo.getPassword()));
+        // 将查询出用户中的角色添加到 SimpleGrantedAuthority 类中
+        List<SimpleGrantedAuthority> sgas = getAuthorities(userInfo.getRoles());
+        // 将封装的 user 返回，底层会比较用户和密码。
+        // 因为密码已经进行二次加密{noop}前缀就可以不用写了。
+        return new User(userInfo.getUsername(),userInfo.getPassword(),sgas);
     }
 
     /**
      * 将查询的用户中的角色添加到 SimpleGrantedAuthority 类中
+     *
      * @param roles
      * @return
      */
