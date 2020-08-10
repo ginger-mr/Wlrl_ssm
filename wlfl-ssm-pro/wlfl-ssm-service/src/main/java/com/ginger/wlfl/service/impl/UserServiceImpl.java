@@ -82,9 +82,8 @@ public class UserServiceImpl implements IUserService {
         // 将封装的 user 返回，底层会比较用户和密码。
         // 因为密码已经进行二次加密{noop}前缀就可以不用写了。
         return new User(userInfo.getUsername(), userInfo.getPassword(),
-                userInfo.getStatus()==0 ? false:true,true, true, true, sgas);
+               userInfo.getStatus()==0 ? false:true,true, true, true, sgas);
     }
-
 
     /**
      * 将查询的用户中的角色添加到 SimpleGrantedAuthority 类中
@@ -100,4 +99,10 @@ public class UserServiceImpl implements IUserService {
         }
         return sgas;
     }
+
+
+    public List<UserInfo> findAll(){
+        return userDao.findAll();
+    }
+
 }

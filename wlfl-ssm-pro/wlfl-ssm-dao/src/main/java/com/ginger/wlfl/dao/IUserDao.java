@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 public interface IUserDao {
 
     /**
@@ -24,4 +26,11 @@ public interface IUserDao {
             @Result(property = "roles", column = "id",many = @Many(select = "com.ginger.wlfl.dao.IRoleDao.findByUserId"))
     })
     public UserInfo findByUsername(String username);
+
+    /**
+     * 查询所有用户
+     * @return
+     */
+    @Select(" select * from users ")
+    public List<UserInfo> findAll();
 }
