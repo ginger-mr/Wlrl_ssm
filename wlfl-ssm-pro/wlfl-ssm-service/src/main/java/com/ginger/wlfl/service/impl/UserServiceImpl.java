@@ -3,6 +3,7 @@ package com.ginger.wlfl.service.impl;
 import com.ginger.wlfl.dao.IUserDao;
 import com.ginger.wlfl.pojo.Role;
 import com.ginger.wlfl.pojo.UserInfo;
+import com.ginger.wlfl.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -19,7 +20,7 @@ import java.util.List;
  * 自定义UserServiceImpl类实现springsecurity框架的UserDetailsService接口
  */
 @Service("userService")
-public class UserServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IUserDao userDao;
