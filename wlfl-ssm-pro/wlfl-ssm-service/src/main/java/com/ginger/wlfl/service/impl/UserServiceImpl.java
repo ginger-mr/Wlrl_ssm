@@ -46,11 +46,12 @@ public class UserServiceImpl implements UserDetailsService {
 
     /**
      * 用户登录功能版本2.0对输入密码进行二次加密
+     *
      * @param username
      * @return
      * @throws UsernameNotFoundException
      */
-    @Override
+    /*@Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据用户名查询用户
         UserInfo userInfo = userDao.findByUsername(username);
@@ -61,7 +62,28 @@ public class UserServiceImpl implements UserDetailsService {
         // 将封装的 user 返回，底层会比较用户和密码。
         // 因为密码已经进行二次加密{noop}前缀就可以不用写了。
         return new User(userInfo.getUsername(),userInfo.getPassword(),sgas);
+    }*/
+
+    /**
+     * 用户登录功能版本3.0判断账户是否启用，启用后才能登录。
+     *
+     * @param username
+     * @return
+     * @throws UsernameNotFoundException
+     */
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // 根据用户名查询用户
+        UserInfo userInfo = userDao.findByUsername(username);
+        //将加密后的密码重新设置到用户中
+        userInfo.setPassword(bcpe.encode(userInfo.getPassword()));
+        // 将查询出用户中的角色添加到 SimpleGrantedAuthority 类中
+        List<SimpleGrantedAuthority> sgas = getAuthorities(userInfo.getRoles());
+        // 将封装的 user 返回，底层会比较用户和密码。
+        // 因为密码已经进行二次加密{noop}前缀就可以不用写了。
+        return new User(userInfo.getUsername(), userInfo.getPassword(),
+                userInfo.getStatus()==0 ? false:true,true, true, true, sgas);
     }
+
 
     /**
      * 将查询的用户中的角色添加到 SimpleGrantedAuthority 类中
