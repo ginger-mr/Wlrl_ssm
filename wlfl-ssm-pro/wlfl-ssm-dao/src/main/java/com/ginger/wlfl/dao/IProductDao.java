@@ -28,24 +28,7 @@ public interface IProductDao {
      * 插入商品
      * @param product
      */
-    @Insert(" insert into " +
-            "  product( " +
-            "    productNum, " +
-            "    productName, " +
-            "    cityName, " +
-            "    departureTime, " +
-            "    productPrice, " +
-            "    productDesc, " +
-            "    productStatus " +
-            "  ) " +
-            "values(" +
-            "    #{ productNum }, " +
-            "    #{ productName }, " +
-            "    #{ cityName }, " +
-            "    #{ departureTime }, " +
-            "    #{ productPrice }, " +
-            "    #{ productDesc }, " +
-            "    #{ productStatus } " +
-            "  ) ")
+    @Insert(" insert into product (productnum,productname,cityname,departuretime,productprice,productdesc,productstatus) " +
+            " values (#{productnum},#{productname},#{cityname},#{departuretime},#{productprice},#{productdesc},#{productstatus}) ")
     public void saveProduct(Product product);
 }

@@ -29,4 +29,17 @@ public class UserController {
         return mav;
     }
 
+    /**
+     * 保存用户
+     * @param userInfo
+     * @return
+     */
+    @RequestMapping("/save.do")
+    public String saveUserInfo(UserInfo userInfo){
+        userService.saveUserInfo(userInfo);
+        return "redirect:findAll.do";
+    }
+
+
+
 }

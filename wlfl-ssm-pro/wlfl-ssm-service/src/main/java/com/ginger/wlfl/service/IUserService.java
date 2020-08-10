@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface IUserService extends UserDetailsService {
     public List<UserInfo> findAll();
+    public void saveUserInfo(UserInfo userInfo);
 }

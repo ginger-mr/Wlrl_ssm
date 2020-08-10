@@ -1,10 +1,7 @@
 package com.ginger.wlfl.dao;
 
 import com.ginger.wlfl.pojo.UserInfo;
-import org.apache.ibatis.annotations.Many;
-import org.apache.ibatis.annotations.Result;
-import org.apache.ibatis.annotations.Results;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -33,4 +30,9 @@ public interface IUserDao {
      */
     @Select(" select * from users ")
     public List<UserInfo> findAll();
+
+
+    @Insert(" insert into users (email,username,password,phonenum,status) " +
+            " values (#{email},#{username},#{password},#{phoneNum},#{status}) ")
+    public void saveUserInfo(UserInfo userInfo);
 }

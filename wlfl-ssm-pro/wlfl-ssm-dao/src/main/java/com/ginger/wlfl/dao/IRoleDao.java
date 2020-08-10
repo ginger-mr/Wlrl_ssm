@@ -20,4 +20,7 @@ public interface IRoleDao {
             " where userid = #{userId} " +
             " ) ")
     public List<Role> findByUserId(String userId);
+
+
+
 }

@@ -100,9 +100,14 @@ public class UserServiceImpl implements IUserService {
         return sgas;
     }
 
-
+    @Override
     public List<UserInfo> findAll(){
         return userDao.findAll();
+    }
+
+    @Override
+    public void saveUserInfo(UserInfo userInfo) {
+        userDao.saveUserInfo(userInfo);
     }
 
 }
