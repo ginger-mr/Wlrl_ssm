@@ -10,6 +10,6 @@ public interface IMemberDao {
      * @param memberId
      * @return
      */
-    @Select("select * from member where id = #{memberId}")
+    @Select(" select * from member where id = #{memberId} ")
     public Member findById(String memberId);
 }

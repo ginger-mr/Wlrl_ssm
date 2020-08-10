@@ -11,7 +11,7 @@ public interface IOrdersDao {
      * 查询所有订单
      * @return
      */
-    @Select("select * from orders")
+    @Select(" select * from orders ")
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "orderNum", column = "orderNum"),
@@ -29,7 +29,7 @@ public interface IOrdersDao {
      * @param ordersId
      * @return
      */
-    @Select("select * from orders where id = #{ordersId}")
+    @Select(" select * from orders where id = #{ordersId} ")
     @Results({
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "orderNum", column = "orderNum"),

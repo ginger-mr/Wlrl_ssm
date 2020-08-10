@@ -14,7 +14,7 @@ import java.util.List;
 public class ProductController {
 
     @Autowired
-    IProductService productService;
+    private IProductService productService;
 
     /**
      * 查询所有商品
@@ -38,6 +38,6 @@ public class ProductController {
     public String saveProduct(Product product) {
         ModelAndView mav = new ModelAndView();
         productService.saveProduct(product);
-        return "redirect:/product/findAll.do";
+        return "redirect:findAll.do";
     }
 }

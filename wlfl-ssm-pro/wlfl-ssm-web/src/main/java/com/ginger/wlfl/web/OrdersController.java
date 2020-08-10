@@ -17,7 +17,7 @@ import java.util.List;
 public class OrdersController {
 
     @Autowired
-    IOrdersService ordersService;
+    private IOrdersService ordersService;
 
     /*
         未分页查询所有订单

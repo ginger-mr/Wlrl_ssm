@@ -11,12 +11,12 @@ public interface ITravellerDao {
      * @param id
      * @return
      */
-    @Select("SELECT *" +
+    @Select(" SELECT * " +
             " FROM traveller " +
             " WHERE id in ( " +
                 " SELECT travellerid " +
                 " FROM order_traveller " +
                 " WHERE orderid = #{ordersId} " +
-            ")")
+            " ) ")
     public List<Traveller> findTravellerOrdersById(String id);
 }
