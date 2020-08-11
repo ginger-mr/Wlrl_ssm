@@ -30,7 +30,7 @@ public class ProductController {
     }
 
     /**
-     * 添加商品
+     * 保存商品
      * @param product
      * @return
      */

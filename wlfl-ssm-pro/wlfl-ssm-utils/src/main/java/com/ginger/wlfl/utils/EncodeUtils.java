@@ -24,7 +24,7 @@ public class EncodeUtils {
      * @param args
      */
     public static void main(String[] args) {
-        String encodeString = getEncodeString("12345");
+        String encodeString = getEncodeString("yingliuzhizhu");
         //可以看出每一次加密的结果都是不一样的
         //$2a$10$Am6NhFtRraDb696Yybe1zOnWa5dvoK5U655gwvrCP5gJQCcUAKdI.
         //$2a$10$qqLUAJpwWPiiiDJ/9FWRQuSOLkM3jlbx/Dn6enCsmR9dgqYse5Et2
