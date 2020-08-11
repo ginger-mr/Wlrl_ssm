@@ -75,8 +75,6 @@ public class UserServiceImpl implements IUserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 根据用户名查询用户
         UserInfo userInfo = userDao.findByUsername(username);
-        //将加密后的密码重新设置到用户中
-        userInfo.setPassword(bcpe.encode(userInfo.getPassword()));
         // 将查询出用户中的角色添加到 SimpleGrantedAuthority 类中
         List<SimpleGrantedAuthority> sgas = getAuthorities(userInfo.getRoles());
         // 将封装的 user 返回，底层会比较用户和密码。
@@ -107,7 +105,13 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void saveUserInfo(UserInfo userInfo) {
+        //保存用户对密码进行二次加密
+        userInfo.setPassword(bcpe.encode(userInfo.getPassword()));
         userDao.saveUserInfo(userInfo);
     }
 
+    @Override
+    public UserInfo findById(String userId) {
+        return userDao.findById(userId);
+    }
 }
