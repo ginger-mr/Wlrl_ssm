@@ -1,5 +1,6 @@
 package com.ginger.wlfl.dao;
 
+import com.ginger.wlfl.pojo.Permission;
 import com.ginger.wlfl.pojo.Role;
 import org.apache.ibatis.annotations.*;
 
@@ -24,11 +25,11 @@ public interface IRoleDao {
     @Select(" select * " +
             " from role " +
             " where id in ( " +
-                " select roleid " +
-                " from users_role " +
-                " where userid = #{userId} " +
+            " select roleid " +
+            " from users_role " +
+            " where userid = #{userId} " +
             " ) ")
-    @Results(id="roleMap",value = {
+    @Results(id = "roleMap", value = {
             @Result(id = true, property = "id", column = "id"),
             @Result(property = "roleName", column = "roleName"),
             @Result(property = "roleDesc", column = "roleDesc"),
@@ -39,6 +40,7 @@ public interface IRoleDao {
 
     /**
      * 保存角色
+     *
      * @param role
      */
     @Insert(" insert into role (rolename,roledesc) " +
@@ -46,11 +48,31 @@ public interface IRoleDao {
     public void saveRole(Role role);
 
     /**
-     *  根据id查询角色
-      * @param roleId
+     * 根据id查询角色
+     *
+     * @param roleId
      * @return
      */
     @Select("select * from role where id = #{roleId}")
     @ResultMap("roleMap")
     public Role findById(String roleId);
+
+
+    @Select(" select * " +
+            " from permission " +
+            " where id not in ( " +
+                " select permissionid " +
+                " from role_permission " +
+                " where roleid = #{roleId}" +
+            " ) ")
+    public List<Permission> findByIdAndOtherPermission(String roleId);
+
+    /**
+     * 添加
+     *
+     * @return
+     */
+    @Select(" insert into role_permission(permissionid,roleid) " +
+            "values(#{permissionId},#{roleId})")
+    public void addPermissionToRole(@Param("permissionId") String permissionId, @Param("roleId") String roleId);
 }
