@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 自定义UserServiceImpl类实现springsecurity框架的UserDetailsService接口
+ * UserServiceImpls实现类间接继承springsecurity框架的UserDetailsService接口
  */
 @Service("userService")
 public class UserServiceImpl implements IUserService {
@@ -113,5 +113,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserInfo findById(String userId) {
         return userDao.findById(userId);
+    }
+
+    @Override
+    public List<Role> findByIdAndOtherRole(String userId) {
+        return userDao.findByIdAndOtherRole(userId);
+    }
+
+    @Override
+    public void addRoleToUser(String userId, String[] ids) {
+        for (String roleId : ids) {
+            userDao.addRoleToUser(userId, roleId);
+        }
     }
 }

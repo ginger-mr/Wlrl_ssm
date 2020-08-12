@@ -1,6 +1,8 @@
 package com.ginger.wlfl.web;
 
+import com.ginger.wlfl.pojo.Role;
 import com.ginger.wlfl.pojo.UserInfo;
+import com.ginger.wlfl.service.IRoleService;
 import com.ginger.wlfl.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,6 +45,7 @@ public class UserController {
         return "redirect:findAll.do";
     }
 
+
     /**
      * 根据id查询用户
      *
@@ -58,5 +61,36 @@ public class UserController {
         return mav;
     }
 
+    @Autowired
+    IRoleService roleService;
+
+    /**
+     * 根据用户id查询出该用户中没有的角色
+     *
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/findByIdAndOtherRole.do")
+    public ModelAndView findByIdAndOtherRole(@RequestParam(name = "id") String userId) {
+        ModelAndView mav = new ModelAndView();
+        UserInfo userInfo = userService.findById(userId);
+        List<Role> otherRoleList = userService.findByIdAndOtherRole(userId);
+        mav.addObject("userInfo", userInfo);
+        mav.addObject("otherRoleList", otherRoleList);
+        mav.setViewName("user-role-add");
+        return mav;
+    }
+
+    /**
+     * 添加角色到用户
+     * @param ids
+     * @param userId
+     * @return
+     */
+    @RequestMapping("/addRoleToUser.do")
+    public String addRoleToUser(String userId,String[] ids){
+        userService.addRoleToUser(userId,ids);
+        return "redirect:findAll.do";
+    }
 
 }

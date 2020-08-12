@@ -1,5 +1,6 @@
 package com.ginger.wlfl.dao;
 
+import com.ginger.wlfl.pojo.Role;
 import com.ginger.wlfl.pojo.UserInfo;
 import org.apache.ibatis.annotations.*;
 
@@ -52,6 +53,12 @@ public interface IUserDao {
     @ResultMap("usersMap")
     public UserInfo findById(String userId);
 
+    /**
+     * 根据角色id查询用户
+     *
+     * @param roleId
+     * @return
+     */
     @Select(" select * " +
             " from users " +
             " where id in ( " +
@@ -61,4 +68,28 @@ public interface IUserDao {
             " ) ")
     @ResultMap("usersMap")
     public List<UserInfo> findByRoleId(String roleId);
+
+    /**
+     * 根据用户的id查询该用户中没有的角色
+     * @param userId
+     * @return
+     */
+    @Select(" select * " +
+            " from role " +
+            " where id not in ( " +
+                " select roleid " +
+                " from users_role " +
+                " where userid = #{userId} " +
+            " ) ")
+    public List<Role> findByIdAndOtherRole(String userId);
+
+    /**
+     * 添加角色到用户
+     *
+     * @param userId
+     * @param roleId
+     */
+    @Insert(" insert into users_role(userid,roleid) " +
+            " values(#{userId},#{roleId}) ")
+    public void addRoleToUser(@Param("userId") String userId, @Param("roleId") String roleId);
 }
